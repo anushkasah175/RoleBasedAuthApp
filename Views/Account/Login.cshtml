@@ -1,0 +1,35 @@
+@model RoleBasedAuthApp.Models.ViewModels.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="card">
+    <h2>Login</h2>
+
+    <form asp-action="Login" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" />
+
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" />
+
+        <label style="font-weight: normal;">
+            <input asp-for="RememberMe" type="checkbox" style="width:auto;" /> Remember me
+        </label>
+
+        <p style="margin-top: 16px;">
+            <button type="submit" class="btn">Login</button>
+        </p>
+    </form>
+
+    <p><a href="/Account/Register">Register a new account</a></p>
+
+    <hr />
+    <p style="font-size: 13px; color: #666;">
+        <strong>Test accounts:</strong><br />
+        Admin &rarr; admin@example.com / Admin@123<br />
+        User &nbsp;&rarr; user@example.com / User@123
+    </p>
+</div>

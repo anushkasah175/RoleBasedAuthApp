@@ -1,0 +1,34 @@
+@model RoleBasedAuthApp.Models.ApplicationUser
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<div class="card">
+    <h1>Admin Dashboard</h1>
+
+    <p style="font-size: 18px;">
+        Welcome, <strong style="color: #0066cc;">@Model?.FullName</strong>!
+    </p>
+
+    <p>You are logged in as an <strong>Administrator</strong>.</p>
+
+    <hr />
+
+    <h3>Your Account Details</h3>
+    <ul>
+        <li><strong>Full Name:</strong> @Model?.FullName</li>
+        <li><strong>Email:</strong> @Model?.Email</li>
+        <li><strong>Username:</strong> @Model?.UserName</li>
+        <li><strong>Role:</strong> Admin</li>
+        <li><strong>User ID:</strong> <code>@Model?.Id</code></li>
+    </ul>
+
+    <hr />
+
+    <h3>Admin Actions</h3>
+    <ul>
+        <li>Manage users</li>
+        <li>View system reports</li>
+        <li>Configure settings</li>
+    </ul>
+</div>

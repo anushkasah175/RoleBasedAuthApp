@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RoleBasedAuthApp</title>
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 0; background: #f5f5f5; }
+        nav { background: #222; color: white; padding: 12px 24px; display: flex; gap: 16px; align-items: center; }
+        nav a { color: #ddd; text-decoration: none; }
+        nav a:hover { color: white; }
+        nav .spacer { flex: 1; }
+        nav .badge { background: #ffc107; color: #000; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+        nav .user-tag { color: #98c379; font-weight: 600; }
+        main { max-width: 900px; margin: 24px auto; padding: 0 24px; }
+        .btn { display: inline-block; background: #0066cc; color: white; padding: 8px 16px; border-radius: 4px;
+               text-decoration: none; border: none; cursor: pointer; }
+        .btn-danger { background: #cc0000; }
+        .text-danger { color: #cc0000; }
+        form.inline { display: inline; }
+        input, select { padding: 6px; width: 100%; max-width: 400px; box-sizing: border-box; }
+        label { display: block; margin-top: 12px; font-weight: 600; }
+        .card { background: white; padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/"><strong>RoleAuthApp</strong></a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="/Admin">Admin Panel</a>
+                <span class="badge">ADMIN</span>
+                <span class="user-tag">👑 Anushka</span>
+            }
+            else
+            {
+                <span class="user-tag">👤 @User.Identity.Name</span>
+            }
+            <span class="spacer"></span>
+            <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
+                <button type="submit" class="btn">Logout</button>
+            </form>
+        }
+        else
+        {
+            <span class="spacer"></span>
+            <a href="/Account/Login">Login</a>
+            <a href="/Account/Register">Register</a>
+        }
+    </nav>
+    <main>
+        @RenderBody()
+    </main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: roleauth-postgres
+    environment:
+      POSTGRES_DB: RoleBasedAuthDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Postgres@123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - roleauth-net
+
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: roleauth-webapp
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Production"
+      PORT: "8080"
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=RoleBasedAuthDb;Username=postgres;Password=Postgres@123"
+    ports:
+      - "8080:8080"
+    networks:
+      - roleauth-net
+    restart: on-failure
+
+volumes:
+  postgres_data:
+
+networks:
+  roleauth-net:
+    driver: bridge

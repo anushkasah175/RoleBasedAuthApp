@@ -1,0 +1,36 @@
+@model RoleBasedAuthApp.Models.ViewModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="card">
+    <h2>Register</h2>
+
+    <form asp-action="Register" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <label asp-for="FullName">Full Name</label>
+        <input asp-for="FullName" />
+
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" />
+
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" type="password" />
+
+        <label asp-for="ConfirmPassword">Confirm Password</label>
+        <input asp-for="ConfirmPassword" type="password" />
+
+        <label asp-for="Role">Register As</label>
+        <select asp-for="Role">
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+        </select>
+
+        <p style="margin-top: 16px;">
+            <button type="submit" class="btn">Register</button>
+        </p>
+    </form>
+
+    <p><a href="/Account/Login">Already have an account? Login</a></p>
+</div>
